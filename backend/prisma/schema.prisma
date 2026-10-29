@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Employee {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(100)
+  email     String    @unique @db.VarChar(191)
+  password  String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  enquiries Enquiry[]
+}
+
+model Enquiry {
+  id             Int       @id @default(autoincrement())
+  name           String    @db.VarChar(100)
+  email          String    @db.VarChar(191)
+  phone          String?   @db.VarChar(30)
+  courseInterest String    @db.VarChar(150)
+  message        String?   @db.Text
+  // null => public/unclaimed, set => private to that counselor
+  claimedById    Int?
+  claimedAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  claimedBy      Employee? @relation(fields: [claimedById], references: [id])
+
+  @@index([claimedById])
+}

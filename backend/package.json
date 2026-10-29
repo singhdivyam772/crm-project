@@ -1,0 +1,28 @@
+{
+  "name": "crm-backend-mysql",
+  "version": "1.0.0",
+  "description": "CRM REST API - Express, MySQL, Prisma 7, JWT",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "postinstall": "prisma generate",
+    "start": "tsx src/server.js",
+    "dev": "tsx watch src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:push": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^4.22.3",
+    "jsonwebtoken": "^9.0.3",
+    "tsx": "^4.23.15"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.1"
+  }
+}
