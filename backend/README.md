@@ -1,6 +1,7 @@
 # CRM Backend (Node.js + Express + MySQL + Prisma 7 + JWT)
 
 ## Setup
+
 1. Node 20.19+ and MySQL 8 running.
 2. `CREATE DATABASE crm;`
 3. `cp .env.example .env` and set `DATABASE_URL` and `JWT_SECRET`.
@@ -9,17 +10,12 @@
 6. `npm start` -> http://localhost:5000
 
 ## API
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | /api/auth/register | No | `{name,email,password}` |
-| POST | /api/auth/login | No | `{email,password}` -> JWT |
-| POST | /api/enquiries/public | No | `{name,email,phone?,courseInterest,message?}` |
-| GET | /api/enquiries/unclaimed?page=&limit= | Bearer | Unclaimed (public) leads |
-| POST | /api/enquiries/:id/claim | Bearer | Claim a lead (becomes private) |
-| GET | /api/enquiries/my?page=&limit= | Bearer | Leads claimed by logged-in user |
 
-## Prisma 7 notes
-- Datasource URL is in `prisma.config.ts`; client generated to `src/generated/prisma`.
-- MySQL uses the driver adapter `@prisma/adapter-mariadb` (`src/lib/prisma.js`).
-- `tsx` runs the app because the generated client is TypeScript.
-- Claiming is one atomic `UPDATE ... WHERE claimedById IS NULL`; a second claim returns 409.
+| Method | Endpoint                              | Auth   | Description                                   |
+| ------ | ------------------------------------- | ------ | --------------------------------------------- |
+| POST   | /api/auth/register                    | No     | `{name,email,password}`                       |
+| POST   | /api/auth/login                       | No     | `{email,password}` -> JWT                     |
+| POST   | /api/enquiries/public                 | No     | `{name,email,phone?,courseInterest,message?}` |
+| GET    | /api/enquiries/unclaimed?page=&limit= | Bearer | Unclaimed (public) leads                      |
+| POST   | /api/enquiries/:id/claim              | Bearer | Claim a lead (becomes private)                |
+| GET    | /api/enquiries/my?page=&limit=        | Bearer | Leads claimed by logged-in user               |
